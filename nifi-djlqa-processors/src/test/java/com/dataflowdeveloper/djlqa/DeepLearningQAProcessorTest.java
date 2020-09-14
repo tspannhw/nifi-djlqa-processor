@@ -68,8 +68,6 @@ public class DeepLearningQAProcessorTest {
     	testRunner.setProperty(DeepLearningQAProcessor.QUESTION_NAME, QUESTION_SQUAD);
     	testRunner.setProperty(DeepLearningQAProcessor.PARAGRAPH_NAME, PARAGRAPH_SQUAD);
     	testRunner.enqueue();
-
-        // Must add valid url for integration test
         runAndAssertHappy();
     }
 
@@ -78,8 +76,6 @@ public class DeepLearningQAProcessorTest {
         testRunner.setProperty(DeepLearningQAProcessor.QUESTION_NAME, QUESTION_TEST);
         testRunner.setProperty(DeepLearningQAProcessor.PARAGRAPH_NAME, PARAGRAPH_TEST);
         testRunner.enqueue();
-
-        // Must add valid url for integration test
         runAndAssertHappy();
     }
 
