@@ -54,10 +54,7 @@
     <orderEntry type="library" name="Maven: ai.djl:basicdataset:0.7.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.commons:commons-csv:1.8" level="project" />
     <orderEntry type="library" name="Maven: ai.djl:model-zoo:0.7.0" level="project" />
-    <orderEntry type="library" name="Maven: ai.djl.mxnet:mxnet-model-zoo:0.7.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: ai.djl.mxnet:mxnet-engine:0.7.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: ai.djl.pytorch:pytorch-engine:0.7.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: ai.djl.mxnet:mxnet-native-auto:1.7.0-backport" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: ai.djl.pytorch:pytorch-native-auto:1.6.0" level="project" />
     <orderEntry type="library" name="Maven: ai.djl.pytorch:pytorch-model-zoo:0.7.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.testng:testng:6.8.1" level="project" />

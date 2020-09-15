@@ -6,6 +6,7 @@ import org.apache.nifi.annotation.documentation.SeeAlso;
 import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnScheduled;
 import org.apache.nifi.components.PropertyDescriptor;
+import org.apache.nifi.expression.ExpressionLanguageScope;
 import org.apache.nifi.flowfile.FlowFile;
 import org.apache.nifi.processor.*;
 import org.apache.nifi.processor.exception.ProcessException;
@@ -35,12 +36,12 @@ public class DeepLearningQAProcessor extends AbstractProcessor {
 
     // properties
     public static final PropertyDescriptor QUESTION = new PropertyDescriptor.Builder().name( QUESTION_NAME )
-            .description("Question").required(true).defaultValue("What")
-            .addValidator(StandardValidators.NON_EMPTY_VALIDATOR).build();
+            .description("Question").required(true).defaultValue("What?")
+            .addValidator(StandardValidators.NON_EMPTY_VALIDATOR).expressionLanguageSupported( ExpressionLanguageScope.FLOWFILE_ATTRIBUTES).build();
 
     public static final PropertyDescriptor PARAGRAPH = new PropertyDescriptor.Builder().name(PARAGRAPH_NAME)
             .description("Paragraph").required(true).defaultValue("...")
-            .addValidator(StandardValidators.NON_EMPTY_VALIDATOR).build();
+            .addValidator(StandardValidators.NON_EMPTY_VALIDATOR).expressionLanguageSupported( ExpressionLanguageScope.FLOWFILE_ATTRIBUTES).build();
 
     // Relationships
     public static final Relationship REL_SUCCESS = new Relationship.Builder().name("success")
@@ -103,7 +104,6 @@ public class DeepLearningQAProcessor extends AbstractProcessor {
                 paragraph = flowFile.getAttribute(PARAGRAPH_NAME);
             }
 
-            Map<String, String> attributes = flowFile.getAttributes();
             Map<String, String> attributesClean = new HashMap<>();
             
             Result result = service.predict( question, paragraph );
@@ -111,7 +111,7 @@ public class DeepLearningQAProcessor extends AbstractProcessor {
             attributesClean.put(OUTPUT_PREDICTION, result.getPrediction());
             attributesClean.put(OUTPUT_ERROR, result.getErrorString());
 
-            if (attributes.size() == 0) {
+            if (attributesClean.size() == 0) {
                 session.transfer(flowFile, REL_FAILURE);
             } else {
                 flowFile = session.putAllAttributes(flowFile, attributesClean);
@@ -121,6 +121,8 @@ public class DeepLearningQAProcessor extends AbstractProcessor {
         } catch (final Throwable t) {
             getLogger().error("Unable to process Deep Learning BERT QA DL " + t.getLocalizedMessage());
             getLogger().error("{} failed to process due to {}; rolling back session", new Object[] { this, t });
+            session.transfer(flowFile, REL_FAILURE);
+            session.commit();
         }
     }
 }

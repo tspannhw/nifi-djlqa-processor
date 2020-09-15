@@ -9,10 +9,10 @@ import java.util.StringJoiner;
  */
 public class Result implements Serializable {
 
-    private String prediction;
-    private String errorString;
-    private String question;
-    private String paragraph;
+    private String prediction = "";
+    private String errorString = "";
+    private String question = "";
+    private String paragraph  = "";
 
     public String getPrediction() {
         return prediction;

@@ -79,4 +79,12 @@ public class DeepLearningQAProcessorTest {
         runAndAssertHappy();
     }
 
+    @Test
+    public void testProcessorNone() {
+        testRunner.setProperty(DeepLearningQAProcessor.QUESTION_NAME, "Why?");
+        testRunner.setProperty(DeepLearningQAProcessor.PARAGRAPH_NAME, "Yahoo Finance's Emily McCormick joins Zack Guzman to discuss Nikola's rebuttal of short seller Hindenburg Research's allegations of fraud.");
+        testRunner.enqueue();
+        runAndAssertHappy();
+    }
+
 }

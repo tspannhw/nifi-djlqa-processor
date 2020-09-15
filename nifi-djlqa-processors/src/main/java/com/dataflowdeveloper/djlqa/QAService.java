@@ -53,8 +53,7 @@ public class QAService {
 
         String prediction = null;
         QAInput input = null;
-        Criteria<QAInput, String> criteria =
-                null;
+        Criteria<QAInput, String> criteria = null;
         try {
             input = new QAInput(question.toLowerCase(), paragraph.toLowerCase());
 
@@ -67,7 +66,11 @@ public class QAService {
         } catch (Exception e) {
             e.printStackTrace();
             result.setErrorString( e.getLocalizedMessage() );
+            return result;
         }
+
+        // must be less than 384 tokens om mxnet model
+        // switched to pytorch model
 
         try (ZooModel<QAInput, String> model = ModelZoo.loadModel(criteria)) {
             try (Predictor<QAInput, String> predictor = model.newPredictor()) {
@@ -76,6 +79,16 @@ public class QAService {
                     result.setPrediction( prediction );
                 }
             }
+            catch(Throwable t) {
+                System.out.println("internal try");
+                t.printStackTrace();
+                result.setErrorString( t.getLocalizedMessage() );
+            }
+        }
+        catch(Throwable t) {
+            t.printStackTrace();
+            System.out.println("external try");
+            result.setErrorString( t.getLocalizedMessage() );
         }
 
         if ( result.getPrediction() == null) {
