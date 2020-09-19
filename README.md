@@ -2,7 +2,7 @@
 
 
 
-
+![Flow](https://raw.githubusercontent.com/tspannhw/nifi-djlqa-processor/main/examples/DeepLearningExampleFlowSentimentBERT.png)
 
 
 QA Bert
