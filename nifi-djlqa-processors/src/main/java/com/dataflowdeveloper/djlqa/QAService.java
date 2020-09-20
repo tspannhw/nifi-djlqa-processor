@@ -61,6 +61,7 @@ public class QAService {
                     .optApplication( Application.NLP.QUESTION_ANSWER)
                     .setTypes( QAInput.class, String.class)
                     .optFilter("backbone", "bert")
+                    .optEngine( "PyTorch" )
                     .optProgress(new ProgressBar())
                     .build();
         } catch (Exception e) {
