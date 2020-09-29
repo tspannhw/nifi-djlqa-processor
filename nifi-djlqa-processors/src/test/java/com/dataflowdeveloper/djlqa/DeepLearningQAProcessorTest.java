@@ -87,4 +87,12 @@ public class DeepLearningQAProcessorTest {
         runAndAssertHappy();
     }
 
+    @Test
+    public void testProcessorRest() {
+        // curl -X POST "http://localhost:10999/query" -H "accept: application/json" -H "Content-Type: application/json" -d '{"description":"Apache NiFi is a great project to watch sessions of at ApacheCon in 2020", "question":"What project to watch?"}'
+        testRunner.setProperty(DeepLearningQAProcessor.QUESTION_NAME, "What project to watch?");
+        testRunner.setProperty(DeepLearningQAProcessor.PARAGRAPH_NAME, "NiFi is a great project to watch sessions of at ApacheCon in 2020");
+        testRunner.enqueue();
+        runAndAssertHappy();
+    }
 }
