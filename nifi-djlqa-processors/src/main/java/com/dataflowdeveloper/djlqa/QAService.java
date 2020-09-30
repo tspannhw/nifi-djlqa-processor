@@ -74,6 +74,7 @@ public class QAService {
         try {
             input = new QAInput(question.toLowerCase(), paragraph.toLowerCase());
 
+            // Having two processors using same Pytorch engine and models is issue.
             criteria = Criteria.builder()
                     .optApplication( Application.NLP.QUESTION_ANSWER)
                     .setTypes( QAInput.class, String.class)
